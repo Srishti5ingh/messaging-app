@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font: 13px Helvetica, Arial;
+      }
+      form {
+        background: rgb(212, 210, 210);
+        padding: 3px;
+
+        width: 100%;
+      }
+      form input {
+        border: 0;
+        padding: 10px;
+        width: 60%;
+        margin-right: 0.5%;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      }
+      #senderId,
+      #receiverId {
+        width: 50%;
+        border-color: red;
+        border-width: 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul id="messages"></ul>
+    <form id="idform">
+      <br /><br /><br /><input
+        id="senderId"
+        type="text"
+        placeholder="Enter sender's name"
+        autocomplete="off"
+      />
+      <br />
+      <br /><input
+        id="receiverId"
+        type="text"
+        placeholder="Enter receiver's name"
+        autocomplete="off"
+      />
+      <button>submit</button>
+    </form>
+
+    <form id="msgform">
+      <br /><input id="m" autocomplete="off" /> <button>Send</button
+      ><br /><br />
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      var senderId = "";
+      var receiverId = "";
+
+      $(function () {
+        var socket = io();
+
+        $("#idform").submit(function (e) {
+          e.preventDefault(); // prevents page reloading
+          senderId = $("#senderId").val();
+          receiverId = $("#receiverId").val();
+          socket.emit("init", senderId);
+          return false;
+        });
+
+        $("#msgform").submit(function (e) {
+          e.preventDefault(); // prevents page reloading
+          var msgData = {
+            receiverId: receiverId,
+            senderId: senderId,
+            text: $("#m").val(),
+          };
+          // emit to send rest of the user data to server
+          socket.emit("message", msgData);
+          return false;
+        });
+
+        // listening to collect response from server to send to user
+        socket.on("message", function (data) {
+          $("#messages").append($("<li>").text(data.text));
+        });
+      });
+    </script>
+  </body>
+</html>

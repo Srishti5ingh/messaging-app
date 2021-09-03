@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font: 13px Helvetica, Arial;
+      }
+      form {
+        background: #000;
+        padding: 3px;
+
+        width: 100%;
+      }
+      /* form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: 0.5%;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      } */
+      #uid,
+      #toid {
+        width: 50%;
+        border-color: red;
+        border-width: 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>User 3 to 1</h1>
+    <ul id="messages"></ul>
+    <!--  <form id="idform">
+      <br><input id="uid" type="text" placeholder="my id" autocomplete="off" /> <br>
+      <input id="toid" type="text" placeholder="to id" autocomplete="off" />
+      <button>submit id</button>
+    </form> -->
+    <form id="msgform">
+      <input id="m" autocomplete="off" />
+      <button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      var uid = "3";
+      var toid = "1";
+      $(function () {
+        var socket = io();
+
+        $("#idform").submit(function (e) {
+          e.preventDefault(); // prevents page reloading
+          uid = $("#uid").val();
+          toid = $("#toid").val();
+          return false;
+        });
+
+        $("#msgform").submit(function (e) {
+          e.preventDefault(); // prevents page reloading
+          var msgData = {
+            toid: toid,
+            uid: uid,
+            text: $("#m").val(),
+          };
+          socket.emit("message", msgData);
+          //$("#u").val("");
+          //$('#testing1').append($('#u').val());
+          return false;
+        });
+        socket.on(uid + " message", function (data) {
+          $("#messages").append($("<li>").text(data.text));
+          /* if(uid === data.toid) {
+            } */
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+socketio - not so useful links
+
+https://github.com/ninesystems/node-chat-one-to-one/blob/master/app.js
+
+
+
+
+https://stackoverflow.com/questions/37830710/private-chat-using-socket-io-in-mean-app?rq=1
+https://stackoverflow.com/questions/7444817/socket-io-chat-with-private-rooms?rq=1
+https://stackoverflow.com/questions/35385609/random-chat-with-two-users-at-a-time-socket-io?noredirect=1&lq=1
+
+https://stackoverflow.com/questions/6846174/dynamic-rooms-with-socket-io-and-node?rq=1
+
+
+https://stackoverflow.com/questions/19150220/creating-rooms-in-socket-io?rq=1
+
+
+https://stackoverflow.com/questions/15961796/nodejs-and-socket-io-chat-customization?rq=1
+
+
+https://stackoverflow.com/questions/17476294/how-to-send-a-message-to-a-particular-client-with-socket-io?rq=1
+
+
+https://stackoverflow.com/questions/17476294/how-to-send-a-message-to-a-particular-client-with-socket-io/17535099#17535099
+
+https://stackoverflow.com/questions/17476294/how-to-send-a-message-to-a-particular-client-with-socket-io#comment39387846_17535099
+
